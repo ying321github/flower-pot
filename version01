@@ -1,0 +1,391 @@
+#include "Adafruit_Thermal.h"
+#include "SoftwareSerial.h"
+#define TX_PIN 6 // Arduino transmit  YELLOW WIRE  labeled RX on printer
+#define RX_PIN 5 // Arduino receive   GREEN WIRE   labeled TX on printer
+#define BAUDRATE 9600
+
+SoftwareSerial mySerial(RX_PIN, TX_PIN); // Declare SoftwareSerial obj first
+Adafruit_Thermal printer(&mySerial);     // Pass addr to printer constructor
+int sensorValue;
+
+void setup() {
+  mySerial.begin(9600); 
+  Serial.begin(9600);// Initialize SoftwareSerial
+  printer.begin();       // Init printer (same regardless of serial type)
+  pinMode(A5, INPUT);
+
+
+}
+void loop() {
+  sensorValue=analogRead(A5);
+  Serial.print("value:");
+  Serial.println(sensorValue);
+  delay(100);
+
+  
+ 
+  
+ if (600 <= analogRead(A5)&& analogRead(A5)  <= 680 ) {
+
+  
+  
+//  printer.justify('M');
+  printer.setFont('A');
+  printer.setSize('M');
+  printer.println("Self introduction");
+  printer.justify('L');
+  printer.setFont('A');
+  printer.println("My name is ");
+  printer.println("Rose");
+  printer.println("You can");
+  printer.println("call me");
+  printer.println("Rose madame.");
+  printer.println("I'm not French");
+  printer.println("I just like");
+  printer.println("people call me");
+  printer.println("madame");
+   printer.feed(2);
+  printer.println("My favorite drink");
+  printer.println("is water");
+   printer.feed(2);
+  printer.println("The best fertilizer");
+  printer.println("is love");
+  printer.feed(2);
+  delay(600000);
+  
+    printer.setFont('A');
+    printer.justify('L');
+    printer.setSize('M');
+    printer.println("(Oh-Oh-Oh)");
+    printer.println("You fall in love");
+    printer.println("too easily....");
+    printer.setFont('B');
+    printer.justify('R');
+    printer.println(F("By Rose madame"));
+    printer.feed(2);
+delay(1200000);
+    
+     printer.setFont('A');
+    printer.justify('L');
+    printer.setSize('M');
+    printer.println("We're almost there");
+    printer.println("Get a suit");
+    printer.println("You have to");
+    printer.println("be good looking");
+    printer.println("everyday:)");
+    printer.setFont('B');
+    printer.justify('R');
+    printer.println(F("By Rose madame"));
+    printer.feed(2);
+    
+delay( 600000 );
+
+    
+
+    
+    printer.setFont('A');
+    printer.justify('L');
+    printer.setSize('M');
+    printer.println("She look");
+    printer.println("so fine");
+    printer.println("Just");
+    printer.println("like");
+    printer.println("me");
+    printer.println("Rose");
+    printer.println("madame:)");
+    printer.setFont('B');
+    printer.justify('R');
+    printer.println(F("By Rose madame"));
+    printer.feed(2);
+delay(50000);
+    
+  printer.setFont('A');
+   printer.justify('L');
+    printer.setSize('M');
+    printer.println("Hope that");
+    printer.println("you can");
+    printer.println("see her");
+    printer.println("soon!");
+    printer.println("I will always");
+    printer.println("be here");
+    printer.println("for you:)");
+    printer.setFont('B');
+    printer.justify('R');
+    printer.println(F("By Rose madame"));
+    printer.feed(2);
+    delay(1200000);
+     printer.setFont('A');
+    printer.justify('L');
+    printer.setSize('M');
+    printer.println("It's");
+    printer.println("so sweet");
+    printer.println("knowing that");
+    printer.println("you love her");
+    printer.setFont('B');
+    printer.justify('R');
+    printer.println(F("By Rose madame"));
+    printer.feed(2);
+     delay(12000);
+  printer.setFont('A');
+   printer.setSize('M'); 
+   printer.println("Who's");
+   printer.println("better?");
+   printer.println("Me");
+   printer.println("or Sunflower?");
+   printer.setFont('B');
+    printer.justify('R');
+    printer.println(F("By Rose madame"));
+    printer.feed(2);
+    delay(1200000);
+    printer.setFont('A');
+    printer.setSize('M'); 
+    printer.println("What's your");
+    printer.println("favorite");
+    printer.println("fruit?");
+    printer.println("Mine is");
+    printer.println("'ROSE'berry");
+    printer.println("Get it?");
+    printer.println("HAHA!");
+    printer.setFont('B');
+    printer.justify('R');
+    printer.println(F("By Rose madame"));
+    printer.feed(2);
+    delay(1200000);
+    printer.setFont('A');
+    printer.setSize('M');
+    printer.println("What a day");
+    printer.println("to be alive");
+    printer.println("I'm ready");
+    printer.println("for the");
+    printer.println("summertime");
+    printer.setFont('B');
+    printer.justify('R');
+    printer.println(F("By Rose madame"));
+    printer.feed(2);
+delay(1200000);
+    printer.setFont('A');
+    printer.setSize('M');
+    printer.println("Knock! Knock!");
+    printer.println("It's me!");
+    printer.println("Rose~");
+    printer.println("Madame");
+    printer.println("Your");
+    printer.println("love coach <3");
+    printer.setFont('B');
+    printer.justify('R');
+    printer.println(F("By Rose madame"));
+    printer.feed(2);
+    
+  delay(1200000);
+  }
+
+
+if( 680 <= analogRead(A5)&& analogRead(A5)  <= 700){
+ 
+ printer.setFont('A');
+    printer.setSize('M'); 
+   // printer.justify('R');
+    printer.println(F("Hear that?"));
+    //printer.setLineHeight(50);
+    printer.setSize('M');
+    printer.println("IT'S LOVE!");
+    printer.setSize('S');
+    printer.println("IT'S PURE LOVE!");
+    printer.setFont('B');
+    printer.justify('R');
+    printer.println(F("By Rose madame"));
+    printer.feed(2);
+    delay(1000);
+    printer.setSize('M'); 
+   // printer.justify('R');
+    printer.println(F("Hear that?"));
+    //printer.setLineHeight(50);
+    printer.setSize('M');
+    printer.println("IT'S LOVE!");
+    printer.setSize('S');
+    printer.println("IT'S PURE LOVE!");
+    printer.setFont('B');
+    printer.justify('R');
+    printer.println(F("By Rose madame"));
+    printer.feed(2);
+    delay(1200000);
+    printer.setFont('A');
+  printer.justify('L');
+  printer.setSize('M');
+  printer.println("Hey ");
+  printer.println("It's been a long time");
+  printer.println("You still love her");
+  printer.setFont('B');
+  printer.justify('R');
+  printer.println(F("By Rose madame"));
+  printer.feed(2);
+  delay(1200000);
+}
+    if(550 <= analogRead(A5)&& analogRead(A5)  <= 600){
+      printer.setFont('A');
+    printer.justify('L');
+    printer.setSize('M');
+     printer.println("Then you");
+     printer.println("walked in");
+    printer.println("and my heart went");
+    
+    printer.println("      'Bloom!'");
+    printer.println("         <3");
+    printer.setFont('B');
+    printer.justify('R');
+    printer.println(F("By Rose madame"));
+    printer.feed(2);
+    
+    delay(600000);
+     printer.setFont('A');
+  printer.justify('L');
+  printer.setSize('M');
+  printer.println("You love her eyes");
+  printer.println("and");
+  printer.feed(1);
+  
+ printer.println("the rest of");
+  printer.println("her face <3"); 
+  printer.setFont('B');
+  printer.justify('R');
+  printer.println(F("By Rose madame"));
+  printer.feed(2);
+  delay(60000);
+    printer.setFont('A');
+    printer.setSize('M');
+    printer.println("Knock! Knock!");
+    printer.println("It's me!");
+    printer.println("Your");
+    printer.println("love coach <3");
+    printer.setFont('B');
+    printer.justify('R');
+    printer.println(F("By Rose madame"));
+    printer.feed(2);
+    delay(300000);
+    
+    printer.setFont('A');
+    printer.setSize('M'); 
+    printer.println("What's your");
+    printer.println("favorite");
+    printer.println("fruit?");
+    printer.println("Mine is");
+    printer.println("'ROSE'berry");
+    printer.println("Get it?");
+    printer.println("HAHA!");
+    printer.setFont('B');
+    printer.justify('R');
+    printer.println(F("By Rose madame"));
+    printer.feed(2);
+    delay(600000);
+    }
+  
+    
+  
+  if (500 <= analogRead(A5)&& analogRead(A5)  <= 550){
+    printer.setFont('A');
+  printer.justify('L');
+  printer.setSize('M');
+  printer.println("Your cursh on her");
+  
+  printer.println("is pretty much");
+  printer.println("the only thing");
+  printer.println("that makes me");
+  printer.println("grow up");                                        
+  printer.println("everyday    :)");
+  printer.setFont('B');
+  printer.justify('R');
+  printer.println(F("By Rose madame"));
+  printer.feed(2);
+  delay(300000);
+   printer.justify('L');
+   printer.setFont('A');
+  printer.setSize('M');
+  printer.println("Time");
+  printer.println("is a gift");
+  printer.println("for you");
+  printer.feed(2);
+  printer.println("as love");
+   printer.setFont('B');
+  printer.justify('R');
+  printer.println(F("By Rose madame"));
+  printer.feed(2);
+  delay(10000);
+  printer.setFont('A');
+   printer.justify('L');
+  printer.setSize('M');
+  printer.println("It is the time");
+  printer.println("you have wasted");
+  printer.println("for your rose");
+  printer.println("that makes your rose");
+  printer.println("so important");
+  printer.println("When I bloom");
+  printer.println("You will find out");
+  printer.println("how much");
+  printer.println("you love her");
+  printer.setFont('B');
+  printer.justify('R');
+  printer.println(F("By Rose madame"));
+  printer.feed(2);
+ delay(1200000);
+
+ }
+
+  //if ( 0 <= analogRead(A5)&& analogRead(A5)  <= 500){
+      
+         printer.setFont('A');
+         printer.justify('L');
+         printer.setSize('M');   
+         printer.println(F("I'm thirsty"));
+         printer.println("I");
+         printer.println("need");
+         printer.println("your love");
+         printer.setFont('B');
+         printer.justify('R');
+         printer.println(F("By Rose madame"));
+         printer.feed(2);
+         delay(10000);
+         printer.setFont('A');
+         printer.justify('L');
+         printer.setSize('M');   
+         printer.println(F("I'm thirsty"));
+         printer.println("I");
+         printer.println("need");
+         printer.println("your love");
+         printer.setFont('B');
+         printer.justify('R');
+         printer.println(F("By Rose madame"));
+         printer.feed(2);
+         delay(5000);
+          printer.setFont('A');
+         printer.justify('L');
+         printer.setSize('M');
+         printer.println("I know");
+         printer.println("You need");
+         printer.println("her");
+         printer.println("But");
+         printer.println("I");
+         printer.println("need");
+         printer.println("water!");
+         printer.setFont('B');
+         printer.justify('R');
+         printer.println(F("By Rose madame"));
+         printer.feed(2);
+         
+      delay(60000);
+ 
+        
+         printer.setFont('A');
+         printer.justify('L');
+         printer.setSize('M');
+         
+         printer.println("I");
+         printer.println("need");
+         printer.println("water!");
+         printer.setFont('B');
+         printer.justify('R');
+         printer.println(F("By Rose madame"));
+         printer.feed(2);
+          delay(600000);
+      
+
+}
