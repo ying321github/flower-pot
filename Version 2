@@ -1,0 +1,112 @@
+#include "Adafruit_Thermal.h"
+#include "SoftwareSerial.h"
+
+#define TX_PIN 6
+#define RX_PIN 5
+
+SoftwareSerial mySerial(RX_PIN, TX_PIN);
+Adafruit_Thermal printer(&mySerial);
+
+const char* sentences_0_to_300[] = {
+  "I'm so thirsty, I need your love",
+  "I'm so thirsty, I need your love",
+  "I'm so thirsty, I need your love",
+  "Water... please",
+  "Hey...I need a sip!",
+  "I need water",
+  ":(",
+  "I'm going to be a mad Rose if you keep torturing me like this",
+  "e;oijf;oiaj3......",
+  "3pib03-=\vlj  'kgkije "
+};
+
+const char* sentences_300_to_700[] = {
+  ("you don't have to be great to start, but you have to start to be great right now~"),
+  ("You know, I'm so happy, I want to sing!  I'm a pretty rose, in the rosy world~ Life in petals, It's fantastic, you can love my red, cherish me everywhere~ Imagibation~~~la la la la la "),
+  ("Hey~ How are you today? I'll always be there for you! "),
+  ("you know, I'm not France, I just like people call me Rose Madame"),
+  ("What's your plan today? Read a book? or some exercise?"),
+  ("Knock! Knock! It's me <3"),
+  ("Where you are is not who you are, trust me, you'll be better every day")
+};
+
+const char* sentences_to_700[] = {
+  "Who's better? Me or sunflower?",
+ "What's your favorite fruit? Mine is 'ROSE'berry. Ｇet it? HAHA!",
+  "Why did the rose bring a ladder to the garden party? Because it wanted to climb to 'rose' to the occasion! HeHe",
+  "I wish I could give you a beautiful rose to express my gratitude.",
+  "Don't forget to take care of yourself.",
+  "No matter if you're happy or sad, your emotions, I'll keep them as secrets because I care about you, so feel free to tell me, it's okay.",
+  "Life is like a flower, it needs care and patience.",
+  "What's your plan today? Read a book? or some exercise?",
+  "Please take some photos for me. I'd like to see what I look like.",
+  "Let me take a look in the mirror! I heard I've grown a bit."
+};
+
+void setup() {
+  mySerial.begin(9600);
+  printer.begin();
+}
+
+void loop() {
+  int sensorValue = analogRead(A5);
+
+  if (sensorValue >= 0 && sensorValue <= 300) {
+    for (int i = 0; i < 10; i++) {
+      printSentence(sentences_0_to_300[i]);
+      delay(10000); // 间隔10秒
+    }
+  } else if (sensorValue > 300 && sensorValue <= 700) {
+    printRandomSentence(sentences_300_to_700, 3, 2 * 60 * 60 * 1000); // 随机打印一句，每两小时重复
+  } else if (sensorValue > 700 ) {
+    printRandomSentence(sentences_to_700, 4, 2 * 60 * 60 * 1000); // 随机打印一句，每两小时重复
+  }
+}
+
+// 打印一句指定的句子，每行只包含两个英文词汇
+void printSentence(const char* sentence) {
+  printer.setFont('A');
+  printer.justify('L');
+  printer.setSize('M');
+
+  int wordCount = 0;
+  String currentLine = "";
+
+  // 分割句子并确保每行只包含两个英文词汇
+  char* token = strtok((char*)sentence, " ");
+  while (token != NULL) {
+    currentLine += token;
+    currentLine += " ";
+    token = strtok(NULL, " ");
+    wordCount++;
+
+    if (wordCount == 2 || token == NULL) {
+      printer.println(currentLine);
+      currentLine = "";
+      wordCount = 0;
+    }
+  }
+
+  printer.setFont('B');
+  printer.justify('R');
+  printer.println("By Your Name");
+  printer.feed(2);
+}
+
+// 随机打印一句，避免重复，每隔指定时间重复
+void printRandomSentence(const char* sentences[], int numSentences, unsigned long repeatInterval) {
+  static unsigned long lastPrintTime = 0;
+  static int lastRandomIndex = -1;
+
+  unsigned long currentTime = millis();
+  if (currentTime - lastPrintTime >= repeatInterval) {
+    int randomIndex = lastRandomIndex;
+    while (randomIndex == lastRandomIndex) {
+      randomIndex = random(0, numSentences);
+    }
+
+    printSentence(sentences[randomIndex]);
+    lastRandomIndex = randomIndex;
+    lastPrintTime = currentTime;
+  }
+}
